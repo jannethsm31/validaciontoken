@@ -20,13 +20,33 @@ def root(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
     token = credentialsv.credentials
     valor = ''
     print(token)
+    c = conn.cursor()
+
+    c.execute("SELECT token FROM usuarios WHERE token = ?", (token,))
+    response = []
+    for fila in c:
+        validator = fila[0]
+        response.append(validator)
+    if not response:
+        return {"message": "Acceso denegado"}
+    return {"message": "Acceso permitido"}
     if token = "12treS":
         return{"auth": True}
     else
         return{"auth": False}
 
 @app.get("/token/")
-def validate_user(credentials: HTTPBasicCredentials = Depends(security));
+async def validate_user(credentials: HTTPBasicCredentials = Depends(security));
     email = credentials .username
     password_b = haslib.md5(credentials.password.encode())
     password = password_b.hexdigest()
+    print(password)
+    c = conn.cursor()
+    c.execute("SELECT token FROM usuarios WHERE username = ? AND password = ?", (email, password))
+    response = []
+    for fila in c:
+        contacto = {"Token": fila[0]}
+        response.append(contacto)
+    if not response:
+        response = []
+    return response
