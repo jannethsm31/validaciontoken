@@ -4,14 +4,22 @@ from fastapi import Depends
 import hashlib
 from fastapi.security import HTTPBasic
 from fastapi.security import HTTPBasicCredentials
+import sqlite3
+
+security = HTTPBasci()
 
 # Recupera el token
 securityBearer = HTTPBearer()
-security = HTTPBasci()
+
+app = FastAPI()
+
+conn = sqlite3.connect('sql/usuarios.db')
 
 @app.get('/')
 def root(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
-    token = credential.credentials
+    token = credentialsv.credentials
+    valor = ''
+    print(token)
     if token = "12treS":
         return{"auth": True}
     else
