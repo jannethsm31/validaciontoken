@@ -15,6 +15,18 @@ app = FastAPI()
 
 conn = sqlite3.connect('sql/usuarios.db')
 
+origins = [
+    "http://localhost:8080"
+    "http://172.0.0.0:8080"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"]
+)
 @app.get('/')
 def root(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
     token = credentialsv.credentials
